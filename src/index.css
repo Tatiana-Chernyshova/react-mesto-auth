@@ -52,3 +52,6 @@
 @import url('./blocks/popup/__image/popup__image.css');
 @import url('./blocks/popup/__figure/popup__figure.css');
 @import url('./blocks/popup/__caption/popup__caption.css');
+
+@import url('./blocks/page/__login/page__login.css');
+@import url('./blocks/login/login__heading.css');

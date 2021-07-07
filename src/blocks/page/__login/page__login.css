@@ -1,0 +1,16 @@
+.page__login {
+  padding-top: 45px;
+  /* border-bottom: 1px solid rgba(84, 84, 84, 0.7); */
+  border: tomato;
+  background-color: yellow;
+  display: flex;
+  justify-content: center;
+  
+
+}
+
+@media screen and (max-width: 320px) {
+  .page__login {
+    padding-top: 28px;
+  }
+}

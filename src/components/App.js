@@ -8,6 +8,7 @@ import CurrentUserContext from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
+import Login from "./Login";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
@@ -108,9 +109,11 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <div className="page__container">
-          <Header />
+          <Login />
 
-          <Main
+          {/* <Header /> */}
+
+          {/* <Main
             onAddPlace={handleIsAddPlacePopupOpen}
             onEditAvatar={handleIsEditAvatarPopupOpen}
             onEditProfile={handleIsEditProfilePopupOpen}
@@ -144,7 +147,7 @@ function App() {
             isOpen={isImagePopupOpen}
             onClose={closeAllPopups}
             card={selectedCard}
-          />
+          /> */}
         </div>
       </div>
     </CurrentUserContext.Provider>
