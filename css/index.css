@@ -14,7 +14,7 @@
     margin: 0;
     padding-top: 6px;
     text-decoration: none;
-    padding-right: 27px;
+    /* padding-right: 27px; */
   }
   
   @media screen and (max-width: 320px) {
@@ -23,6 +23,9 @@
       font-size: 14px;
       line-height: 17px;
       /* padding-top: 26px; */
+      /* width: 103.74px;
+      height: 24.4px; */
+      padding-right: 27px;
     }
   }
 
@@ -43,7 +46,7 @@
   }
   .form__auth {
     margin: 0;
-    padding-top: 60px;
+    padding-top: 40px;
     /* width: 358px; */
     /* background-color: aqua; */
     display: flex;
@@ -55,6 +58,7 @@
   .auth__heading {
     color: white;
     text-align: center;
+    padding-bottom: 26px;
   }
 
   .auth__input-container{
@@ -79,7 +83,7 @@
     font-size: 14px;
     line-height: 17px;
     color: #FFFFFF;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
     padding-bottom: 9px;
     background-color: #000000;
   }
@@ -139,3 +143,4 @@
   .auth__link:hover {
     opacity: 0.8;
   }
+

@@ -1,50 +1,66 @@
+import React from 'react';
+import Auth from "./Auth";
+
+// function EditProfilePopup(props) {
+  // const [name, setName] = React.useState('');
+  // const [description, setDescription] = React.useState('');
+  // const currentUser = React.useContext(CurrentUserContext);
+
+  // function handleChangeName(e) {
+  //   setName(e.target.value);
+  // }
+
+  // function handleChangeDescription(e) {
+  //   setDescription(e.target.value);
+  // }
+
+  // function handleSubmit(e) {
+  //   // Запрещаем браузеру переходить по адресу формы
+  //   e.preventDefault();
+  //   // Передаём значения управляемых компонентов во внешний обработчик
+  //   props.onUpdateUser({
+  //     name,
+  //     about: description,
+  //   });
+  //   setName('');
+  //   setDescription('');
+  // }
+
+  // React.useEffect(() => {
+  //   setName(currentUser.name);
+  //   setDescription(currentUser.about);
+  // }, [currentUser, props.isOpen]); 
+
+//   return (
+//     <Auth
+//     title="Редактировать профиль"
+//     text="Emaidddd"
+//     buttonText="Сохранить"
+//     captionText="Уже зарегистрированы? Войти"
+//     isOpen={props.isOpen}
+//     onClose={props.onClose}
+//     onSubmit={handleSubmit}
+//   >
+//   </Auth>
+//   );
+// }
+
+// export default EditProfilePopup;
+
+
+
 function Login(props) {
 
   return (
-    <article className="login page__login">
-      <form
-        className="login_type_form"
-        // name={`form-${props.name}`}
-        // onSubmit={props.onSubmit}
-        >
-        <h2 className="login__heading">Регистрация</h2>
-        <fieldset className="popup__input-container">
-
-        {/* <input
-      type="text"
-      className="popup__input popup__input_el_name"
-      id="name-input"
-      name="name"
-      placeholder="Ваше имя"
-      value={name || ''}
-      minLength="2"
-      maxLength="40"
-      required
-      onChange={handleChangeName}
-    />
-    <span className="name-input-error popup__input-error"></span>
-    <input
-      type="text"
-      className="popup__input popup__input_el_about"
-      id="about-input"
-      name="about"
-      placeholder="Краткое описание"
-      value={description || ''}
-      minLength="2"
-      maxLength="200"
-      required
-      onChange={handleChangeDescription}
-    />
-    <span className="about-input-error popup__input-error"></span> */}
-    
-          <button type="submit" className="popup__submit" aria-label="Сохранить" 
-          >{props.buttonText}</button>
-        </fieldset>
-        <button className="popup__button popup__button_close" type="button" aria-label="Закрыть"
-          onClick={props.onClose}
-        ></button>
-      </form>
-    </article>
+    <Auth
+    title="Вход"
+    buttonText="Войти"
+    // captionText="Уже зарегистрированы? Войти"
+    // isOpen={props.isOpen}
+    // onClose={props.onClose}
+    // onSubmit={handleSubmit}
+    >
+    </Auth>
   );
 
 }

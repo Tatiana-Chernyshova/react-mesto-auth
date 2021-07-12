@@ -9,6 +9,7 @@ import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import Login from "./Login";
+import SuccessPopup from "./SuccessPopup";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
@@ -109,9 +110,14 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <div className="page__container">
-          <Login />
 
-          {/* <Header /> */}
+
+          <Header />
+
+          <Login />
+          {/* captionText="Уже зарегистрированы? Войти" */}
+
+          <SuccessPopup />
 
           {/* <Main
             onAddPlace={handleIsAddPlacePopupOpen}
