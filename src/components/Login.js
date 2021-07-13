@@ -1,35 +1,35 @@
-import React from 'react';
-import Auth from "./Auth";
+import React from "react";
+import AuthForm from "./AuthForm";
 
 // function EditProfilePopup(props) {
-  // const [name, setName] = React.useState('');
-  // const [description, setDescription] = React.useState('');
-  // const currentUser = React.useContext(CurrentUserContext);
+// const [name, setName] = React.useState('');
+// const [description, setDescription] = React.useState('');
+// const currentUser = React.useContext(CurrentUserContext);
 
-  // function handleChangeName(e) {
-  //   setName(e.target.value);
-  // }
+// function handleChangeName(e) {
+//   setName(e.target.value);
+// }
 
-  // function handleChangeDescription(e) {
-  //   setDescription(e.target.value);
-  // }
+// function handleChangeDescription(e) {
+//   setDescription(e.target.value);
+// }
 
-  // function handleSubmit(e) {
-  //   // Запрещаем браузеру переходить по адресу формы
-  //   e.preventDefault();
-  //   // Передаём значения управляемых компонентов во внешний обработчик
-  //   props.onUpdateUser({
-  //     name,
-  //     about: description,
-  //   });
-  //   setName('');
-  //   setDescription('');
-  // }
+// function handleSubmit(e) {
+//   // Запрещаем браузеру переходить по адресу формы
+//   e.preventDefault();
+//   // Передаём значения управляемых компонентов во внешний обработчик
+//   props.onUpdateUser({
+//     name,
+//     about: description,
+//   });
+//   setName('');
+//   setDescription('');
+// }
 
-  // React.useEffect(() => {
-  //   setName(currentUser.name);
-  //   setDescription(currentUser.about);
-  // }, [currentUser, props.isOpen]); 
+// React.useEffect(() => {
+//   setName(currentUser.name);
+//   setDescription(currentUser.about);
+// }, [currentUser, props.isOpen]);
 
 //   return (
 //     <Auth
@@ -47,22 +47,18 @@ import Auth from "./Auth";
 
 // export default EditProfilePopup;
 
-
-
 function Login(props) {
-
   return (
-    <Auth
-    title="Вход"
-    buttonText="Войти"
-    // captionText="Уже зарегистрированы? Войти"
-    // isOpen={props.isOpen}
-    // onClose={props.onClose}
-    // onSubmit={handleSubmit}
-    >
-    </Auth>
+    <AuthForm
+      title="Вход"
+      buttonText="Войти"
+      // captionText="Уже зарегистрированы? Войти"
+      // isOpen={props.isOpen}
+      // onClose={props.onClose}
+      // onSubmit={handleSubmit}
+      onSubmit={props.onSubmit}
+    ></AuthForm>
   );
-
 }
 
 export default Login;
