@@ -1,17 +1,37 @@
-import { Link } from 'react-router-dom'; 
-import headerLogo from '../images/header-logo.svg';
+import { Link, useLocation } from 'react-router-dom'
+import headerLogo from "../images/header-logo.svg";
 
 function Header(props) {
+  const location = useLocation();
+
   return (
     <header className="header page__header">
-      <a href="#" className="header__link" rel="noopener" >
+      <Link className="header__link"  to="/" rel="noreferrer">
         <img src={headerLogo} alt="Логотип Mesto" className="header__logo" />
-      </a>
-      {/* <a href="#" class="header__link header__auth" target="_blank" rel="noopener">Войти</a> */}
-      <Link to={props.url} className="header__link header__auth">
-        {props.text}
       </Link>
-    </header> 
+      <div className='header__box'>
+        {props.loggedIn ? (
+          <>
+            <p className='header__email'>
+              {props.userEmail}
+              </p>
+            <Link
+              className="header__link header__signout"
+              onClick={props.onSignOut}
+              to="/signin">
+              Выйти
+            </Link>
+          </>
+        ) : (
+          <Link
+            className="header__link header__signin"
+            to={`${location.pathname === '/signin' ? '/signup' : '/signin'}`}>
+            {`${location.pathname === '/signin' ? 'Регистрация' : 'Войти'}`}
+          </Link>
+        )
+        }
+      </div>
+    </header>
   );
 }
 

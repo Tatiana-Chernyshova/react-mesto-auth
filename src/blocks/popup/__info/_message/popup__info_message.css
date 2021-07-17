@@ -1,10 +1,10 @@
 .popup__info_message {
-  margin-bottom: 60px;
+  margin: 0 auto 60px;
   font-style: normal;
   font-weight: 900;
   font-size: 24px;
   line-height: 29px;
-  max-width: 418px;
+  max-width: 364px;
   text-align: center;
 }
 

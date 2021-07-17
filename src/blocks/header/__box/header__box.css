@@ -1,16 +1,13 @@
-.header__auth {
+.header__box {
+  display: flex;
+  padding-top: 6px;
   font-style: normal;
-  font-weight: 400;
   font-size: 18px;
   line-height: 22px;
-  color: #ffffff;
-  margin: 0;
-  padding-top: 6px;
-  text-decoration: none;
 }
 
 @media screen and (max-width: 320px) {
-  .header__auth {
+  .header__box {
     font-size: 14px;
     line-height: 17px;
   }

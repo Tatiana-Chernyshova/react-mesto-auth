@@ -10,11 +10,7 @@ function Register(props) {
       buttonText="Зарегистрироваться"
       linkUrl="/signin"
       linkText="Уже зарегистрированы? Войти"
-
-      // isOpen={props.isOpen}
-      // onClose={props.onClose}
       onSubmit={props.onSubmit}
-      // isOpen={props.isOpen}
     ></AuthForm>
   );
 }

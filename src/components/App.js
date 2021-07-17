@@ -27,9 +27,10 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
   const history = useHistory();
-  const [loggedIn, setloggedIn] = React.useState(false);
+  const [loggedIn, setLoggedIn] = React.useState(false);
   const [isInfoPopupOpen, setInfoPopupOpen] = React.useState(false);
   const [isInfoTooltip, setInfoTooltip] = React.useState({message: '', image: ''});
+  const [headerUserEmail, setHeaderUserEmail] = React.useState('');
 
   function handleIsEditProfilePopupOpen() {
     setIsEditProfilePopupOpen(true);
@@ -109,15 +110,12 @@ function App() {
     })
 }
 
-  function handleRegister({email, password}) {
-    
-    auth.register({
-        email, password
-    })
+  function handleRegister(password, email) {
+
+    auth.register(password, email)
         .then((res) => {
-
             history.push('/singin');
-
+            
             setInfoTooltip({
                 message: 'Вы успешно зарегистрировались!',
                 image: infoTooltipSuccess
@@ -130,70 +128,48 @@ function App() {
         })
 }
 
-function handleLogin({email, password}) {
-    // console.log(email);
-    // console.log(password);
-  auth.login({
-      email, password
-  })
+function handleLogin(password, email) {
+  auth.login(password, email)
       .then((res) => {
         if (res) {
-          // checkToken();
-          // getCards();
-          // getUser();
-
-          // setHeaderUserLoginEmail(email);
-
-          // setLoggedIn(true);
-
+          localStorage.setItem('token', res.token)
+          setHeaderUserEmail(email);
+          setLoggedIn(true);
+          history.push('/');
           setInfoTooltip({
               message: 'Вы успешно авторизовались!',
               image: infoTooltipSuccess
           });
-
           setInfoPopupOpen(true);
       }
   })
   .catch(() => {
-      // setLoggedIn(false);
-      // setInfoTooltipError()
-      // setInfoPopupOpen(true);
       setInfoTooltipFail();
       setInfoPopupOpen(true);
       })
 }
 
+function checkToken(data) {
+  const token = localStorage.getItem('token')
+  if (token) {
+    auth.getToken(token)
+      .then(res => {
+        setHeaderUserEmail(res.data.email)
+        setLoggedIn(true)
+      })
+      .catch(e => { console.log(e) }) 
+  } else {
+    console.log('Пользователя не существует')
+    return
+  }
+}
 
-// function handleLogin({email, password}) {
-
-//   auth.login({
-//       email, password
-//   })
-//       .then((res) => {
-
-//           if (res) {
-//               // checkToken();
-//               // getCards();
-//               // getUser();
-
-//               // setHeaderUserLoginEmail(email);
-
-//               // setLoggedIn(true);
-
-//               // setInfoTooltip({
-//               //     message: 'Вы успешно авторизовались!',
-//               //     image: infoTooltipDoneImage
-//               // });
-
-//               setInfoPopupOpen(true);
-//           }
-//       })
-//       .catch(() => {
-//           setloggedIn(false);
-//           setInfoTooltipError()
-//           setInfoPopupOpen(true);
-//       })
-// }
+function handleSignOut() {
+  localStorage.removeItem('token')
+  setLoggedIn(false);
+  setHeaderUserEmail('');
+  history.push('/signin')
+}
 
   React.useEffect(() => {
     api.getUserData()
@@ -211,16 +187,28 @@ function handleLogin({email, password}) {
       .catch(e => { console.log(e) })
   }, [])
 
+  React.useEffect(() => {
+    checkToken()
+  }, [loggedIn])
+
+  React.useEffect(() => {
+    if (loggedIn) {
+      history.push('/')
+    }
+  }, [loggedIn, history])
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <div className="page__container">
+
+          <Header
+            loggedIn={loggedIn}
+            userEmail={headerUserEmail}
+            onSignOut={handleSignOut}
+          />
+
           <Switch>
-            {/* <Route exact path="/">
-              {loggedIn ? <Redirect to="/" /> : <Redirect to="/signin" />}
-            </Route>  */}
-
-
             <ProtectedRoute
               exact
               path="/"
@@ -235,44 +223,24 @@ function handleLogin({email, password}) {
               onCardDelete={handleCardDelete}
             />
 
-            <Route path="/signup">
-              <Header text="Войти" url="/signin"/>
-              <Register 
+            <Route path='/signup'>
+              <Register
                 onSubmit={handleRegister}
               />
             </Route>
 
-            <Route path="/signin">
-              <Header text="Регистрация" url="/signup"/>
-              <Login 
+            <Route path='/signin'>
+              <Login
                 onSubmit={handleLogin}
               />
             </Route>
 
-            {/* <Route exact path="/">
-              <ProtectedRoute />
-            </Route> */}
+            <Route>
+              {loggedIn ? <Redirect to='/' /> : <Redirect to='signin' />}
+            </Route>
           </Switch>
+          {loggedIn && <Footer />}
 
-
-          {/* <Header /> */}
-
-          {/* <Login /> */}
-          {/* captionText="Уже зарегистрированы? Войти" */}
-
-          {/* <InfoTooltip /> */}
-
-          {/* <Main
-            onAddPlace={handleIsAddPlacePopupOpen}
-            onEditAvatar={handleIsEditAvatarPopupOpen}
-            onEditProfile={handleIsEditProfilePopupOpen}
-            onCardClick={handleCardClick}
-            cards={cards}
-            onCardLike={handleCardLike}
-            onCardDelete={handleCardDelete}
-          />
-
-          <Footer />
 
           <EditProfilePopup 
           isOpen={isEditProfilePopupOpen} 
@@ -300,7 +268,7 @@ function handleLogin({email, password}) {
           
 
           
-          */}
+
           <InfoTooltip
             isOpen={isInfoPopupOpen}
             onClose={closeAllPopups}

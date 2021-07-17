@@ -16,7 +16,7 @@ function AuthForm(props) {
 
   function handleSubmit(evt) {
       evt.preventDefault();
-      props.onSubmit({email, password});
+      props.onSubmit(password, email);
   }
 
   return (
@@ -51,7 +51,6 @@ function AuthForm(props) {
           >
             {props.buttonText}
           </button>
-          {/* <a href="#" className="auth__link" target="_blank" rel="noopener">{props.captionText}</a> */}
           <Link to={props.linkUrl} className="auth__link">
             {props.linkText}
           </Link>
