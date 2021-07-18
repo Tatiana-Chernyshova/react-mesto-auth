@@ -1,12 +1,12 @@
 import React from "react";
 import AuthForm from "./AuthForm";
 
-function Login(props) {
+function Login({ onSubmit }) {
   return (
     <AuthForm
       title="Вход"
       buttonText="Войти"
-      onSubmit={props.onSubmit}
+      onSubmit={onSubmit}
     ></AuthForm>
   );
 }

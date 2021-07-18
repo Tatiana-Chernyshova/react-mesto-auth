@@ -2,8 +2,7 @@ import React from 'react';
 import PopupWithForm from "./PopupWithForm";
 import CurrentUserContext from "../contexts/CurrentUserContext";
 
-
-function EditProfilePopup(props) {
+function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
   const [name, setName] = React.useState('');
   const [description, setDescription] = React.useState('');
   const currentUser = React.useContext(CurrentUserContext);
@@ -20,26 +19,24 @@ function EditProfilePopup(props) {
     // Запрещаем браузеру переходить по адресу формы
     e.preventDefault();
     // Передаём значения управляемых компонентов во внешний обработчик
-    props.onUpdateUser({
+    onUpdateUser({
       name,
       about: description,
     });
-    setName('');
-    setDescription('');
   }
 
   React.useEffect(() => {
     setName(currentUser.name);
     setDescription(currentUser.about);
-  }, [currentUser, props.isOpen]); 
+  }, [currentUser, isOpen]); 
 
   return (
     <PopupWithForm
     title="Редактировать профиль"
     name="edit"
     buttonText="Сохранить"
-    isOpen={props.isOpen}
-    onClose={props.onClose}
+    isOpen={isOpen}
+    onClose={onClose}
     onSubmit={handleSubmit}
   >
     <input

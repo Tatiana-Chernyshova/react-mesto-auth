@@ -30,7 +30,7 @@ function App() {
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [isInfoPopupOpen, setInfoPopupOpen] = React.useState(false);
   const [isInfoTooltip, setInfoTooltip] = React.useState({message: '', image: ''});
-  const [headerUserEmail, setHeaderUserEmail] = React.useState('');
+  const [currentUserEmail, setCurrentUserEmail] = React.useState('');
 
   function handleIsEditProfilePopupOpen() {
     setIsEditProfilePopupOpen(true);
@@ -132,7 +132,7 @@ function App() {
         .then((res) => {
           if (res) {
             localStorage.setItem('token', res.token)
-            setHeaderUserEmail(email);
+            setCurrentUserEmail(email);
             setLoggedIn(true);
             history.push('/');
             setInfoTooltip({
@@ -153,42 +153,29 @@ function App() {
     if (token) {
       auth.getToken(token)
         .then(res => {
-          setHeaderUserEmail(res.data.email)
+          setCurrentUserEmail(res.data.email)
           setLoggedIn(true)
         })
         .catch(e => { console.log(e) }) 
-    } else {
-      console.log('Пользователя не существует')
-      return
     }
   }
 
   function handleSignOut() {
     localStorage.removeItem('token')
     setLoggedIn(false);
-    setHeaderUserEmail('');
+    setCurrentUserEmail('');
     history.push('/signin')
   }
 
   React.useEffect(() => {
-    api.getUserData()
-      .then(res => {
-        setCurrentUser(res)
+    Promise.all([api.getUserData(), api.getCards()])
+      .then(([userData, cardsData]) => {
+        setCurrentUser(userData);
+        setCards(cardsData);
+        checkToken();
       })
       .catch(e => { console.log(e) })
   }, [])
-
-  React.useEffect(() => {
-    api.getCards()
-      .then(card => {
-        setCards(card)
-      })
-      .catch(e => { console.log(e) })
-  }, [])
-
-  React.useEffect(() => {
-    checkToken()
-  }, [loggedIn])
 
   React.useEffect(() => {
     if (loggedIn) {
@@ -203,7 +190,7 @@ function App() {
 
           <Header
             loggedIn={loggedIn}
-            userEmail={headerUserEmail}
+            userEmail={currentUserEmail}
             onSignOut={handleSignOut}
           />
 

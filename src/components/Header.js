@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom'
 import headerLogo from "../images/header-logo.svg";
 
-function Header(props) {
+function Header({ loggedIn, userEmail, onSignOut }) {
   const location = useLocation();
 
   return (
@@ -10,14 +10,14 @@ function Header(props) {
         <img src={headerLogo} alt="Логотип Mesto" className="header__logo" />
       </Link>
       <div className='header__box'>
-        {props.loggedIn ? (
+        {loggedIn ? (
           <>
             <p className='header__email'>
-              {props.userEmail}
+              {userEmail}
               </p>
             <Link
               className="header__link header__signout"
-              onClick={props.onSignOut}
+              onClick={onSignOut}
               to="/signin">
               Выйти
             </Link>

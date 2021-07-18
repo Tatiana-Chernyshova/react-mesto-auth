@@ -1,11 +1,9 @@
 import React from "react";
 import PopupWithForm from "./PopupWithForm";
-import CurrentUserContext from "../contexts/CurrentUserContext";
 
-function AddPlacePopup(props) {
+function AddPlacePopup({ isOpen, onClose, onUpdateUser }) {
   const [name, setName] = React.useState('');
   const [link, setLink] = React.useState('');
-  const currentUser = React.useContext(CurrentUserContext);
 
   function handleChangeName(e) {
     setName(e.target.value);
@@ -17,21 +15,24 @@ function AddPlacePopup(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    props.onUpdateUser({
+    onUpdateUser({
       name,
       link,
     });
+  }
+
+  React.useEffect(() => {
     setName('');
     setLink('');
-  }
+  }, [isOpen]); 
 
   return (
     <PopupWithForm
       title="Новое место"
       name="add"
       buttonText="Создать"
-      isOpen={props.isOpen}
-      onClose={props.onClose}
+      isOpen={isOpen}
+      onClose={onClose}
       onSubmit={handleSubmit}
     >
       <input

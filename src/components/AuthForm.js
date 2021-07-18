@@ -1,7 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
-function AuthForm(props) {
+function AuthForm({ title, buttonText, onSubmit, children }) {
 
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
@@ -16,13 +15,13 @@ function AuthForm(props) {
 
   function handleSubmit(evt) {
       evt.preventDefault();
-      props.onSubmit(password, email);
+      onSubmit(password, email);
   }
 
   return (
     <article className="page__auth">
       <form className="auth" name="auth" onSubmit={handleSubmit}>
-        <h2 className="auth__heading">{props.title}</h2>
+        <h2 className="auth__heading">{title}</h2>
         <fieldset className="auth__input-container">
           <input
             type="text"
@@ -49,11 +48,9 @@ function AuthForm(props) {
             className="auth__submit"
             aria-label="auth__submit"
           >
-            {props.buttonText}
+            {buttonText}
           </button>
-          <Link to={props.linkUrl} className="auth__link">
-            {props.linkText}
-          </Link>
+          {children}
         </fieldset>
       </form>
     </article>
