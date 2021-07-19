@@ -3,7 +3,6 @@ import PopupWithForm from "./PopupWithForm";
 
 function EditAvatarPopup({ isOpen, onClose, onUpdateUser }) {
   const avatarRef = React.useRef();
-  const [link, setLink] = React.useState('');
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -12,12 +11,8 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateUser }) {
     });
   }
 
-  function handleChangeLink(e) {
-    setLink(e.target.value);
-  }
-
   React.useEffect(() => {
-    setLink('');
+    avatarRef.current.value = "";
   }, [isOpen]); 
 
   return (
@@ -38,8 +33,6 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateUser }) {
         defaultValue=""
         required
         ref={avatarRef}
-        onChange={handleChangeLink}
-        value={link || ''}
       />
       <span className="avatar-input-error popup__input-error"></span>
     </PopupWithForm>

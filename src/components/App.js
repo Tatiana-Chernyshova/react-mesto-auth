@@ -172,7 +172,6 @@ function App() {
       .then(([userData, cardsData]) => {
         setCurrentUser(userData);
         setCards(cardsData);
-        checkToken();
       })
       .catch(e => { console.log(e) })
   }, [])
@@ -182,6 +181,10 @@ function App() {
       history.push('/')
     }
   }, [loggedIn, history])
+
+  React.useEffect(() => { 
+    checkToken();
+  }, []) 
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
